@@ -7,6 +7,7 @@ export interface Project {
   tech: string;
   icon?: React.ReactNode;
   color?: string;
+  url: string;
 }
 
 export interface SocialLink {

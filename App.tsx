@@ -14,6 +14,7 @@ import {
 import { Card } from './components/Card';
 import { Badge } from './components/Badge';
 import { Project, SocialLink } from './types';
+import Link from 'next/link';
 
 // --- Data & Configuration ---
 
@@ -35,19 +36,21 @@ const STACK = [
 const PROJECTS: Project[] = [
   {
     id: '1',
-    title: 'API Gateway Service',
+    title: 'Sistema de revenda de carros.',
     description: 'Microsserviço de roteamento de alta performance.',
-    tech: 'Go',
+    tech: 'Django / DRF',
     icon: <Server className="text-blue-600" size={32} />,
-    color: 'bg-blue-50'
+    color: 'bg-blue-50',
+    url:'https://carros-django.onrender.com/cars/'
   },
   {
     id: '2',
-    title: 'E-commerce Core',
+    title: 'Chatbot com RAG utilizando a API da OpenAI.',
     description: 'Backend robusto com gestão de inventário.',
     tech: 'Django / DRF',
     icon: <Database className="text-green-600" size={32} />,
-    color: 'bg-green-50'
+    color: 'bg-green-50',
+    url:'https://chatbot-rag-donato.streamlit.app/'
   },
   {
     id: '3',
