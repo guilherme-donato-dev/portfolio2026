@@ -14,7 +14,6 @@ import {
 import { Card } from './components/Card';
 import { Badge } from './components/Badge';
 import { Project, SocialLink } from './types';
-import Link from 'next/link';
 
 // --- Data & Configuration ---
 
@@ -37,7 +36,7 @@ const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Sistema de revenda de carros.',
-    description: 'Microsserviço de roteamento de alta performance.',
+    description: 'Plataforma de revenda online estruturada com Django e PostgreSQL. Conta com integração à API da OpenAI para gerar automaticamente descrições atrativas para os veículos. Acesso: User: teste | Senha: testando123',
     tech: 'Django / DRF',
     icon: <Server className="text-blue-600" size={32} />,
     color: 'bg-blue-50',
@@ -46,7 +45,7 @@ const PROJECTS: Project[] = [
   {
     id: '2',
     title: 'Chatbot com RAG utilizando a API da OpenAI.',
-    description: 'Backend robusto com gestão de inventário.',
+    description: 'Assistente virtual inteligente com suporte a RAG (Recuperação Aumentada por Geração) para análise de documentos enviados pelo usuário, permitindo a seleção dinâmica do modelo de linguagem a ser utilizado.',
     tech: 'Django / DRF',
     icon: <Database className="text-green-600" size={32} />,
     color: 'bg-green-50',
@@ -54,36 +53,31 @@ const PROJECTS: Project[] = [
   },
   {
     id: '3',
-    title: 'Analytics Dashboard',
-    description: 'Visualização de dados em tempo real.',
+    title: 'API para uma Biblioteca de filmes.',
+    description: 'API desenvolvida com Django Rest Framework, implementando autenticação JWT e controle de permissões. O frontend em Streamlit consome os dados para exibir estatísticas, catálogo completo e sistema de avaliações.',
     tech: 'Next.js / SQL',
     icon: <Layers className="text-purple-600" size={32} />,
-    color: 'bg-purple-50'
+    color: 'bg-purple-50',
+    url: 'https://flixapp-donato.streamlit.app/'
   },
   {
     id: '4',
-    title: 'Auth Provider',
-    description: 'Sistema centralizado de autenticação OAuth2.',
+    title: 'Previsão do Tempo Global',
+    description: 'Aplicação web ágil desenvolvida com HTML, CSS e JavaScript puro. Consome a API da OpenWeather para entregar informações climáticas precisas e em tempo real de qualquer cidade do mundo.',
     tech: 'Go / Redis',
     icon: <Cpu className="text-cyan-600" size={32} />,
-    color: 'bg-cyan-50'
+    color: 'bg-cyan-50',
+    url:'https://guilherme-donato-dev.github.io/open-weather/'
   },
   {
     id: '5',
-    title: 'Task Queue Worker',
-    description: 'Processamento assíncrono de tarefas pesadas.',
+    title: 'Resumidor de texto com IA',
+    description: 'Ferramenta que extrai e resume o conteúdo de artigos a partir de URLs usando a API da OpenAI. A arquitetura utiliza Python (Django/DRF) no backend e Streamlit para uma interface limpa e intuitiva.',
     tech: 'Python / Celery',
     icon: <Terminal className="text-yellow-600" size={32} />,
-    color: 'bg-yellow-50'
-  },
-  {
-    id: '6',
-    title: 'Legacy Migration',
-    description: 'Ferramentas de migração de dados críticos.',
-    tech: 'SQL / Shell',
-    icon: <Code2 className="text-gray-600" size={32} />,
-    color: 'bg-gray-50'
-  },
+    color: 'bg-yellow-50',
+    url: 'https://app-resume-api.streamlit.app/'
+  },  
 ];
 
 // --- Components ---
@@ -171,35 +165,58 @@ const StackCard = () => (
   </Card>
 );
 
-const ProjectCardItem: React.FC<{ project: Project }> = ({ project }) => (
-  <Card className="group cursor-pointer h-full aspect-square sm:aspect-auto">
-    <div className={`h-[40%] ${project.color} flex items-center justify-center border-b border-gray-100 relative overflow-hidden`}>
-      <div className="transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
-        {project.icon}
-      </div>
-      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-        <div className="bg-white p-1.5 rounded-full shadow-sm">
-          <ArrowUpRight size={16} className="text-gray-900" />
+const ProjectCardItem: React.FC<{ project: Project }> = ({ project }) => {
+  const cardContent = (
+    <Card className="group cursor-pointer h-full aspect-square sm:aspect-auto flex flex-col">
+      {/* Topo do card com a imagem/ícone */}
+      <div className={`h-40 ${project.color} flex shrink-0 items-center justify-center border-b border-gray-100 relative overflow-hidden`}>
+        <div className="transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+          {project.icon}
+        </div>
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+          <div className="bg-white p-1.5 rounded-full shadow-sm">
+            <ArrowUpRight size={16} className="text-gray-900" />
+          </div>
         </div>
       </div>
-    </div>
-    <div className="p-5 flex flex-col justify-between h-[60%] bg-white">
-      <div>
-        <h3 className="font-bold text-gray-900 text-lg mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">
-          {project.title}
-        </h3>
-        <p className="text-gray-500 text-sm line-clamp-3 leading-relaxed">
-          {project.description}
-        </p>
+      
+      {/* Parte de baixo do card com os textos (Ajustado) */}
+      <div className="p-5 flex flex-col justify-between flex-1 bg-white">
+        <div>
+          {/* Removido o line-clamp-1 do título */}
+          <h3 className="font-bold text-gray-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">
+            {project.title}
+          </h3>
+          {/* Removido o line-clamp-3 da descrição */}
+          <p className="text-gray-500 text-sm leading-relaxed">
+            {project.description}
+          </p>
+        </div>
+        <div className="mt-4">
+          <Badge className="bg-gray-50 text-gray-600 border-gray-100">
+            {project.tech}
+          </Badge>
+        </div>
       </div>
-      <div className="mt-4">
-        <Badge className="bg-gray-50 text-gray-600 border-gray-100">
-          {project.tech}
-        </Badge>
-      </div>
-    </div>
-  </Card>
-);
+    </Card>
+  );
+
+  // Alteração feita aqui: Trocamos <Link> por <a>
+  if (project.url) {
+    return (
+      <a 
+        href={project.url} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="block h-full cursor-pointer"
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return cardContent;
+};
 
 const Footer = () => (
   <footer className="py-12 text-center">
